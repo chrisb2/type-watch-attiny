@@ -4,27 +4,26 @@
 
 const int piezoPin1 = A2;
 const int piezoPin2 = A3;
-const int ledPin = DISPLAY_LED;
 const int buttonPin = 2;
 
 const int numReadings = 5;
 const int flashDelay = 200;
 
-int threshold = 300;
-const int minThreshold = 300;
-const int maxThreshold = 500;
+// Threshold control values in millivolts
+int threshold = 400;
+const int minThreshold = 400;
+const int maxThreshold = 800;
 const int stepSize = 50;
 
 Bounce button = Bounce();
-ezLED led(ledPin);
+ezLED led(DISPLAY_LED);
 
 void printMillivolts(int v1, int v2);
 void printThreshold(int threshold);
 int readPiezo(int pin);
 
 void setup() {
-  pinMode(buttonPin, INPUT_PULLUP);
-  button.attach(buttonPin);
+  button.attach(buttonPin, INPUT_PULLUP);
   button.interval(5);
 #ifdef UNO
   Serial.begin(9600);

@@ -3,7 +3,7 @@ This project based on an [ATtiny85](https://www.microchip.com/en-us/product/ATti
 
 The program can use any MCU which supports the Arduino language.
 
-The piezo sensors are [Sparkfun Piezo Elements](https://www.sparkfun.com/products/10293).
+The piezo sensors are [Sparkfun Piezo Elements](https://www.sparkfun.com/products/10293) and are connected at connector _J3_.
 
 ![circuit diagram](images/type-watch-circuit.png)
 
