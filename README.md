@@ -1,5 +1,5 @@
 # type-watch
-This project uses two piezo sensors under a keyboard to sense harsh typing and flashes an LED when a strong keystroke is detected. This feedback allows the user to train themselves to type gently, thus avoiding occupational overuse syndrome (OOS).
+This project based on an [ATtiny85](https://www.microchip.com/en-us/product/ATtiny85) MCU and uses two piezo sensors under a keyboard to sense harsh typing and flashes a LED when a strong keystroke is detected. This feedback allows the user to train themselves to type gently, thus avoiding occupational overuse syndrome (OOS).
 
 The program can use any MCU which supports the Arduino language.
 
