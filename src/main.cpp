@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Bounce2.h>
+#include <ezLED.h>
 
 const int piezoPin1 = A2;
 const int piezoPin2 = A3;
@@ -15,19 +16,16 @@ const int maxThreshold = 500;
 const int stepSize = 50;
 
 Bounce button = Bounce();
+ezLED led(ledPin);
 
-void flashLed();
 void printMillivolts(int v1, int v2);
 void printThreshold(int threshold);
 int readPiezo(int pin);
 
 void setup() {
-  pinMode(ledPin, OUTPUT);
   pinMode(buttonPin, INPUT_PULLUP);
-
   button.attach(buttonPin);
   button.interval(5);
-
 #ifdef UNO
   Serial.begin(9600);
   Serial.println("Begin");
@@ -35,13 +33,17 @@ void setup() {
 }
 
 void loop() {
+  led.loop();
+
   button.update();
   if (button.fell()) {
     threshold += stepSize;
     if (threshold > maxThreshold) {
       threshold = minThreshold;
+      led.blinkNumberOfTimes(50, 50, 4);
+    } else {
+      led.blinkNumberOfTimes(100, 100, 1);
     }
-    flashLed();
     printThreshold(threshold);
   }
 
@@ -49,7 +51,7 @@ void loop() {
   int piezo2 = readPiezo(piezoPin2);
 
   if (piezo1 > threshold || piezo2 > threshold) {
-    flashLed();
+    led.blinkNumberOfTimes(flashDelay, flashDelay, 1);
     printMillivolts(piezo1, piezo2);
   }
 }
@@ -63,12 +65,6 @@ int readPiezo(int pin) {
   
   // convert the average analog reading to millivolts
   return (int)(average * 4.8828125); 
-}
-
-void flashLed() {
-  digitalWrite(ledPin, HIGH); // On
-  delay(flashDelay);
-  digitalWrite(ledPin, LOW); // Off
 }
 
 void printMillivolts(int v1, int v2) {
