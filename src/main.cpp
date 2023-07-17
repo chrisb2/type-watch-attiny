@@ -1,26 +1,30 @@
 #include <Arduino.h>
 #include <Bounce2.h>
 #include <ezLED.h>
+#include <ResponsiveAnalogRead.h>
 
 const int piezoPin1 = A2;
 const int piezoPin2 = A3;
 const int buttonPin = 2;
 
-const int numReadings = 5;
+// On period for LED flash
 const int flashDelay = 200;
+// Convert adc value to millivolts
+const float mvFactor = 4.88; 
 
 // Threshold control values in millivolts
 int threshold = 400;
 const int minThreshold = 400;
-const int maxThreshold = 800;
+const int maxThreshold = 850;
 const int stepSize = 50;
 
 Bounce button = Bounce();
+ResponsiveAnalogRead piezoSensor1(piezoPin1, true);
+ResponsiveAnalogRead piezoSensor2(piezoPin2, true);
 ezLED led(DISPLAY_LED);
 
 void printMillivolts(int v1, int v2);
 void printThreshold(int threshold);
-int readPiezo(int pin);
 
 void setup() {
   button.attach(buttonPin, INPUT_PULLUP);
@@ -32,6 +36,9 @@ void setup() {
 }
 
 void loop() {
+  piezoSensor1.update();
+  piezoSensor2.update();
+
   led.loop();
 
   button.update();
@@ -46,24 +53,13 @@ void loop() {
     printThreshold(threshold);
   }
 
-  int piezo1 = readPiezo(piezoPin1);
-  int piezo2 = readPiezo(piezoPin2);
+  int piezo1 = (int) piezoSensor1.getValue() * mvFactor;
+  int piezo2 = (int) piezoSensor2.getValue() * mvFactor;
 
   if (piezo1 > threshold || piezo2 > threshold) {
     led.blinkNumberOfTimes(flashDelay, flashDelay, 1);
     printMillivolts(piezo1, piezo2);
   }
-}
-
-int readPiezo(int pin) {
-  int sum = 0;
-  for(int i = 0; i < numReadings; i++) {
-    sum += analogRead(pin);
-  }
-  int average = sum / numReadings;
-  
-  // convert the average analog reading to millivolts
-  return (int)(average * 4.8828125); 
 }
 
 void printMillivolts(int v1, int v2) {
