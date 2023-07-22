@@ -32,6 +32,7 @@ void printThreshold(int threshold);
 void setup() {
   button.attach(buttonPin, INPUT_PULLUP);
   button.interval(5);
+  led.blinkNumberOfTimes(400, 400, 2);
 #ifdef UNO
   Serial.begin(9600);
   Serial.println("Begin");
