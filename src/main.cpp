@@ -13,14 +13,17 @@ const int flashDelay = 200;
 const float mvFactor = 4.88; 
 
 // Threshold control values in millivolts
-int threshold = 400;
 const int minThreshold = 400;
-const int maxThreshold = 850;
-const int stepSize = 50;
+const int maxThreshold = 1300;
+const int stepSize = 100;
+int threshold = 900;
+
+// Smoothing factor for ResponsiveAnalogRead
+const float snapMultiplier = 1.0f;
 
 Bounce button = Bounce();
-ResponsiveAnalogRead piezoSensor1(piezoPin1, true);
-ResponsiveAnalogRead piezoSensor2(piezoPin2, true);
+ResponsiveAnalogRead piezoSensor1(piezoPin1, false, snapMultiplier);
+ResponsiveAnalogRead piezoSensor2(piezoPin2, false, snapMultiplier);
 ezLED led(DISPLAY_LED);
 
 void printMillivolts(int v1, int v2);
