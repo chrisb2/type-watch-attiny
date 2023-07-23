@@ -17,7 +17,7 @@ const int buttonPin = 2;
 // On period for LED flash
 const int flashDelay = 200;
 // Convert adc value to millivolts
-const float mvFactor = 4.88; 
+const float mvFactor = 4.88f; 
 
 // Smoothing factor for ResponsiveAnalogRead
 const float snapMultiplier = 1.0f;
@@ -41,9 +41,6 @@ void setup() {
 }
 
 void loop() {
-  piezoSensor1.update();
-  piezoSensor2.update();
-
   led.loop();
 
   button.update();
@@ -55,28 +52,31 @@ void loop() {
     } else {
       led.blinkNumberOfTimes(100, 100, 1);
     }
+#ifdef UNO
     printThreshold(threshold);
+#endif
   }
 
+  piezoSensor1.update();
+  piezoSensor2.update();
   int piezo1 = (int) piezoSensor1.getValue() * mvFactor;
   int piezo2 = (int) piezoSensor2.getValue() * mvFactor;
-
   if (piezo1 > threshold || piezo2 > threshold) {
     led.blinkNumberOfTimes(flashDelay, flashDelay, 1);
+#ifdef UNO
     printMillivolts(piezo1, piezo2);
+#endif
   }
 }
 
-void printMillivolts(int v1, int v2) {
 #ifdef UNO
+void printMillivolts(int v1, int v2) {
   Serial.print(v1);
   Serial.print(", ");
   Serial.println(v2);
-#endif
 }
 
 void printThreshold(int threshold) {
-#ifdef UNO
     Serial.println(threshold);
-#endif
 }
+#endif
