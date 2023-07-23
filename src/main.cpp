@@ -3,6 +3,13 @@
 #include <ezLED.h>
 #include <ResponsiveAnalogRead.h>
 
+// Threshold control values in millivolts
+const int minThreshold = 200;
+const int maxThreshold = 2100;
+const int stepSize = 200;
+int threshold = 200;
+
+// Pins
 const int piezoPin1 = A2;
 const int piezoPin2 = A3;
 const int buttonPin = 2;
@@ -11,12 +18,6 @@ const int buttonPin = 2;
 const int flashDelay = 200;
 // Convert adc value to millivolts
 const float mvFactor = 4.88; 
-
-// Threshold control values in millivolts
-const int minThreshold = 400;
-const int maxThreshold = 1300;
-const int stepSize = 100;
-int threshold = 900;
 
 // Smoothing factor for ResponsiveAnalogRead
 const float snapMultiplier = 1.0f;
