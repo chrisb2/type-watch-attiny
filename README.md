@@ -7,4 +7,7 @@ The piezo sensors are [Sparkfun Piezo Elements](https://www.sparkfun.com/product
 
 ![circuit diagram](images/type-watch-circuit.png)
 
-The piezoelectric sensors are place under each foot of the keyboard.
+The Gerbers and BOM for the PCB are in the _gerbers_ directory.
+![pcb](images/type-watch-pcb.svg)
+
+The piezoelectric sensors are place under each back foot of the keyboard.
