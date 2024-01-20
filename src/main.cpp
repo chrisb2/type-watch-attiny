@@ -3,10 +3,10 @@
 #include <ezLED.h>
 
 // Threshold control values in millivolts
-const int minThreshold = 475;
-const int maxThreshold = 700;
-const int stepSize = 25;
-int threshold = 600;
+const int minThreshold = 1200;
+const int maxThreshold = 2200;
+const int stepSize = 100;
+int threshold = 1700;
 
 // Pins
 const int piezoPin1 = A2;
