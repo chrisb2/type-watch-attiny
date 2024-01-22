@@ -10,4 +10,10 @@ The piezo sensors are [Sparkfun Piezo Elements](https://www.sparkfun.com/product
 The Gerbers and BOM for the PCB are in the _gerbers_ directory.
 ![pcb](images/type-watch-pcb.svg)
 
-The piezoelectric sensors are place under each back foot of the keyboard.
+The PCB is 55 * 8.3mm and is designed to fit inside a 9.5 * 9.5mm square PVC tube.
+
+![Complete Device](images/type-watch-complete.jpg)
+
+The piezoelectric sensors are placed under each back foot of the keyboard. 
+
+The threshold can be adjusted between the limits in the program by pressing the button and is stored in EEPROM so that it persists over restarts.
